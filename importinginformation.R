@@ -12,8 +12,9 @@ library(biom)
 
 ###### Test for "sequencing run" as a factor determining sample variation
 #
-ps_combined = import_biom(16S_otu_table_newjson.biom)
+ps_combined = import_biom("16S_otu_table_newjson.biom")
 ps_combined_rar = rarefy_even_depth(ps_combined, sample.size = 1000)
+#issues with below line
 ps_combined_DESeq = DESeq_varstab(ps_combined, ~Plate)
 ps_combined_DESeq
 compare_runs = subset_samples(ps_combined_rar,Compare_runs == 1)
