@@ -1,0 +1,11 @@
+---
+title: "Thesis and Explanations of Computational Methods"
+author: "Roxanne Fieldhouse"
+date: "`r date()"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+

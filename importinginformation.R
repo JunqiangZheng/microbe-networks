@@ -1,7 +1,8 @@
-##to create biom... create biom -i___ -o____ --table-type="OTU table" --to-json
-##this can also be done with pythoninr
-
 setwd("~/Documents")
+
+##to create biom... create biom 
+## python.call(-i out_table_new.biom  -o otu_table_newjson.biom --table-type="OTU table" --to-json)
+
 
 library(phyloseq)
 library(ggplot2)
@@ -14,14 +15,13 @@ library(biom)
 #
 ps_combined = import_biom("16S_otu_table_newjson.biom")
 ps_combined_rar = rarefy_even_depth(ps_combined, sample.size = 1000)
-#issues with below line
-ps_combined_DESeq = DESeq_varstab(ps_combined, ~Plate)
+ps_combined_DESeq = DESeq_varstab(ps_combined, 1)
 ps_combined_DESeq
-compare_runs = subset_samples(ps_combined_rar,Compare_runs == 1)
-compare_runs = prune_taxa(taxa_sums(compare_runs) > 0, compare_runs)
-compare_runs_bray = phyloseq::distance(compare_runs, method = "bray")
-compare_runsdf = data.frame(sample_data(compare_runs))
-adonis(compare_runs_bray ~ Illumina_run,data=compare_runsdf)
+#remove: compare_runs = subset_samples(ps_combined_rar,Compare_runs == 1)
+#remove: compare_runs = prune_taxa(taxa_sums(compare_runs) > 0, compare_runs)
+#remove: compare_runs_bray = phyloseq::distance(compare_runs, method = "bray")
+#remove: compare_runsdf = data.frame(sample_data(compare_runs))
+#remove: adonis(compare_runs_bray ~ Illumina_run,data=compare_runsdf)
 
 
 #Prepare phyloseq object
