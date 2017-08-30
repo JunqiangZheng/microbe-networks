@@ -1,32 +1,53 @@
 trial, not working yet. Consult Lucas on settings that we should use.
 
 
-Starting out:
+Starting out, loading all libraries and setting the work domain, importing the otu table and using that function to label columns as "species", "genus", "family"...:
 ```{r}
 library(cooccur)
 library(rPython)
+library(phyloseq)
+library(ggplot2)
+library("DESeq2")
+library(vegan)
+library(psych)
+library(biom)
 setwd("~/Documents")
 
-pscooccur <- import_biom("16S_otu_table_newjson.biom")
+pscooccur <- import_biom("16S_otu_table_newjson.biom",
+                         parseFunction=parse_taxonomy_greengenes)
 ```
 
 
-Cutting down the information (remove samples with 1000 or less and then making it presence absence):
+Cutting down the information... 
+Grouping it by family:
 ```{r}
-pscooccur_pruned <- prune_samples(names(which(sample_sums(pscooccur) >= 100)),pscooccur)
-pscooccur_pruned[pscooccur_pruned > 0] <- 1
+pscooccur.genus <- tax_glom(pscooccur, taxrank = "Genus")
+pscooccur.family <- tax_glom(pscooccur.genus, taxrank = "Family")
 ```
 
-Running the cooccur function:
+Cutting down controls, (add remove samples with 1000 or less), and then making it presence absence for family:
 ```{r}
-##Using R python- python.call("filter_otus_from_otu_table.py -i 16S_otu_table_newjson.biom -o 16S_otu_table_newjson_no_singletons.biom -n 2")
+pscooccur_pruned <- prune_samples(names(which(sample_sums(pscooccur.family) >= 0)),pscooccur.family)
+pscooccur_pruned <-subset_samples(pscooccur_pruned, Tissue != "DNA_control") # sam_data is empty, has it already been removed?
+pscooccur_pruned <- prune_taxa(taxa_sums(pscooccur_pruned) > 1000, pscooccur_pruned)
+pscooccur_pruned_pa <- transform_sample_counts(pscooccur_pruned,function(x)1*(x>0))
+```
 
-cooccur_16S <- cooccur(mat = pscooccur_pruned,
+Creating the otu table from the pruned phyloseq object for family:
+```{r}
+
+otutab <- otu_table(pscooccur_pruned_pa) # this is a data frame
+#otutab <- as.matrix(otu_table(pscooccur)) # this is a matrix
+```
+
+Running the cooccur function for just presence absence for family:
+```{r}
+cooccur_16S <- cooccur(mat = otutab,
                       type = "spp_site",
                       thresh = TRUE,
-                      spp_names = TRUE
-                      #true_rand_classifier = "???",
-                      #prob = "???",
+                      spp_names = TRUE,
+                      true_rand_classifier = .1, # default value
+                      prob = "comb" #combinatory (comb) or hypergeometric (hyper)
                       #site_mask = "???"
                       #only_effects = TRUE,
                       #eff_standard = TRUE
@@ -35,3 +56,27 @@ cooccur_16S <- cooccur(mat = pscooccur_pruned,
 summary(cooccur_16S)
 plot(cooccur_16S)
 ```
+
+
+Doing the same process for Genus:
+```{r}
+pscooccur.genus_pruned <- prune_samples(names(which(sample_sums(pscooccur.genus) >= 0)),pscooccur.genus)
+pscooccur.genus_pruned <-subset_samples(pscooccur.genus_pruned, Tissue != "DNA_control") # sam_data is empty, has it already been removed?
+pscooccur.genus_pruned <- prune_taxa(taxa_sums(pscooccur.genus_pruned) > 500, pscooccur.genus_pruned)
+pscooccur.genus_pruned_pa <- transform_sample_counts(pscooccur.genus_pruned,function(x)1*(x>0))
+
+otutab.genus <- otu_table(pscooccur.genus_pruned_pa)
+
+cooccur.genus_16S <- cooccur(mat = otutab.genus,
+                      type = "spp_site",
+                      thresh = TRUE,
+                      spp_names = TRUE,
+                      true_rand_classifier = .1, # default value
+                      prob = "comb" #combinatory (comb) or hypergeometric (hyper)
+                      #site_mask = "???"
+                      #only_effects = TRUE,
+                      #eff_standard = TRUE
+)
+
+summary(cooccur.genus_16S)
+plot(cooccur.genus_16S)
