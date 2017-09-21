@@ -1,6 +1,4 @@
-trial, not working yet. Consult Lucas on settings that we should use.
-
-
+                                                   
 Starting out, loading all libraries and setting the work domain, importing the otu table and using that function to label columns as "species", "genus", "family"...:
 ```{r}
 library(cooccur)
@@ -46,6 +44,16 @@ otutab.family <- otu_table(pscooccur_pruned_pa.family) # this is a data frame
 #otutab <- as.matrix(otu_table(pscooccur)) # this is a matrix
 ```
 
+<<<<<<< HEAD
+=======
+
+Running the cooccur function for family:
+```{r}
+pscooccur_pruned.family <- prune_samples(names(which(sample_sums(pscooccur.family) >= 0)),pscooccur)
+pscooccur_pruned.family <-subset_samples(pscooccur_pruned.family, Tissue != "DNA_control")
+pscooccur_pruned_pa.family <- transform_sample_counts(pscooccur_pruned.family,function(x)1*(x>0))
+```
+>>>>>>> a9e2b279086993839bbef1cc5b3273bed70c16dd
 
 Running the cooccur function for family:
 ```{r}
@@ -87,3 +95,4 @@ cooccur.genus_16S <- cooccur(mat = otutab.genus,
 
 summary(cooccur.genus_16S)
 plot(cooccur.genus_16S)
+ 
