@@ -11,7 +11,7 @@ library(biom)
 library(wesanderson)
 setwd("~/Documents")
 
-pscooccur <- import_biom("16S_otu_table_newjson.biom",
+pscooccur <- import_biom("corn_rox.biom",
                          parseFunction=parse_taxonomy_greengenes)
 ```
 
