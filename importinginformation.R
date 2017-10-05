@@ -2,30 +2,29 @@ setwd("~/Documents")
 
 ##to create biom... 
 ## python.call(make_otu_table.py -i fileascsv.txt -o file.biom -t rep_set tax_assignments.txt)
+## python.call(biom convert -i file.tsv -o file.biom --table-type="OTU table" --to-json) )
 
-
+library(cooccur)
 library(phyloseq)
 library(ggplot2)
 library("DESeq2")
 library(vegan)
 library(psych)
 library(biom)
+library(wesanderson)
+library(knitr)
 
-###### Test for "sequencing run" as a factor determining sample variation
-#
-ps_combined = import_biom("16S_otu_table_newjson.biom")
-ps_combined_rar = rarefy_even_depth(ps_combined, sample.size = 1000)
-ps_combined_DESeq = DESeq_varstab(ps_combined, 1)
-ps_combined_DESeq
-#remove: compare_runs = subset_samples(ps_combined_rar,Compare_runs == 1)
-#remove: compare_runs = prune_taxa(taxa_sums(compare_runs) > 0, compare_runs)
-#remove: compare_runs_bray = phyloseq::distance(compare_runs, method = "bray")
-#remove: compare_runsdf = data.frame(sample_data(compare_runs))
-#remove: adonis(compare_runs_bray ~ Illumina_run,data=compare_runsdf)
+#My OTU table
+pscooccur <- import_biom("16S_otu_table_newjson.biom",
+                         parseFunction=parse_taxonomy_greengenes)
 
+#Accounting for error within the samples
+pscooccur1 <- prune_samples(names(which(sample_sums(pscooccur) >= 0)),pscooccur)
+pscooccur1 <- prune_taxa(taxa_sums(pscooccur1) > 11, pscooccur1)
+sd <- import_qiime_sample_data("corn_rox.tsv")
+pscooccur1 <- merge_phyloseq(pscooccur1, sd)
+pscooccur1 <- DESeq_varstab(pscooccur1, ~1)
 
-#Prepare phyloseq object
-ps_16S = import_biom("16S_otu_table_newjson.biom",
-                     #Lucas removed: refseqfilename = "16S_rep_set.fasta",
-                     treefilename = "16S_otus.tre",
-                     parseFunction=parse_taxonomy_greengenes)
+#save the file as something that can be recalled when doing other fuctions
+saveRDS(pscooccur1, file = "pscooccur1.rds")
+#to restore: readRDS(file = "pscooccur1.rds")
