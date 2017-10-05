@@ -1,7 +1,7 @@
 setwd("~/Documents")
 
-##to create biom... create biom 
-## python.call(-i out_table_new.biom  -o otu_table_newjson.biom --table-type="OTU table" --to-json)
+##to create biom... 
+## python.call(make_otu_table.py -i fileascsv.txt -o file.biom -t rep_set tax_assignments.txt)
 
 
 library(phyloseq)
