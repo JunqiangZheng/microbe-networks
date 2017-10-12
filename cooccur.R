@@ -1,5 +1,4 @@
 ###importing in the data set
-
 readRDS(file = "pscooccur1.rds")
 
 ###Cutting down the information... Grouping it by family and putting in the taxonomic names:
@@ -13,7 +12,12 @@ otutab1.family <- otu_table(pscooccur.family)
 taxtab.family <- tax_table(pscooccur.family)
 rownames(otutab1.family) <- taxtab.family[,5]
 
-#Cutting down controls, (add remove samples with 1000 or less), and then making it presence absence for family:
+
+
+
+#Running the cooccur function for family:
+pscooccur_pruned.family <- prune_samples(names(which(sample_sums(pscooccur.family) >= 0)),pscooccur)
+pscooccur_pruned.family <-subset_samples(pscooccur_pruned.family, Type != "DNA_control")
 pscooccur_pruned.family <- prune_taxa(taxa_sums(pscooccur_pruned.family) > 1000, pscooccur_pruned.family)
 pscooccur_pruned_pa.family <- transform_sample_counts(pscooccur_pruned.family,function(x)1*(x>0))
 
@@ -24,11 +28,6 @@ otutab.family <- otu_table(pscooccur_pruned_pa.family) # this is a data frame
 #this is a matrix
 
 
-
-#Running the cooccur function for family:
-pscooccur_pruned.family <- prune_samples(names(which(sample_sums(pscooccur.family) >= 0)),pscooccur)
-pscooccur_pruned.family <-subset_samples(pscooccur_pruned.family, Type != "DNA_control")
-pscooccur_pruned_pa.family <- transform_sample_counts(pscooccur_pruned.family,function(x)1*(x>0))
 
 #Running the cooccur function for family:
 cooccur_16S.family <- cooccur(mat = otutab.family,
