@@ -16,7 +16,7 @@ rownames(otutab1.family) <- taxtab.family[,5]
 
 
 #Running the cooccur function for family:
-pscooccur_pruned.family <- prune_samples(names(which(sample_sums(pscooccur.family) >= 0)),pscooccur)
+pscooccur_pruned.family <- prune_samples(names(which(sample_sums(pscooccur.family) >= 0)),pscooccur.family)
 pscooccur_pruned.family <-subset_samples(pscooccur_pruned.family, Type != "DNA_control")
 pscooccur_pruned.family <- prune_taxa(taxa_sums(pscooccur_pruned.family) > 1000, pscooccur_pruned.family)
 pscooccur_pruned_pa.family <- transform_sample_counts(pscooccur_pruned.family,function(x)1*(x>0))
@@ -46,8 +46,8 @@ plot(cooccur_16S.family)
 
 
 #Doing the same process for Genus:
-pscooccur.genus_pruned <- prune_taxa(taxa_sums(pscooccur.genus_pruned) > 600, pscooccur.genus_pruned)
-pscooccur.genus_pruned_pa <- transform_sample_counts(pscooccur.genus_pruned,function(x)1*(x>0))
+#pscooccur.genus_pruned <- prune_taxa(taxa_sums(pscooccur.genus) > 600, pscooccur.genus)
+pscooccur.genus_pruned_pa <- transform_sample_counts(pscooccur.genus,function(x)1*(x>0))
 
 otutab.genus <- otu_table(pscooccur.genus_pruned_pa)
 

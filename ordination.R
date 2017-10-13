@@ -5,8 +5,7 @@ pscooccur1_ord <-phyloseq::ordinate(pscooccur1, method = "DCA", distance = "bray
 names(pscooccur1_ord)
 names(sample_data(pscooccur1))
 
-plot(1)
-col.pal <- wes_palette(n = 6, name = "Moonrise1", type = "continuous")
+col.pal <- wes_palette(n = 6, name = "Darjeeling2", type = "continuous")
 palette(col.pal)
 plot(pscooccur1_ord$rproj[,1:2], col=sample_data(pscooccur1)$type, pch=16)
 head(sample_data(pscooccur1))
