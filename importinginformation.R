@@ -13,6 +13,8 @@ library(psych)
 library(biom)
 library(wesanderson)
 library(knitr)
+library(sp)
+library(ade4)
 
 #My OTU table- old method using OTU clustering
 #pscooccur <- import_biom("16S_otu_table_newjson.biom",
