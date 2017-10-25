@@ -7,7 +7,8 @@ names(sample_data(pscooccur1))
 
 col.pal <- wes_palette(n = 6, name = "Darjeeling2", type = "continuous")
 palette(col.pal)
-plot(pscooccur1_ord$rproj[,1:2], col=sample_data(pscooccur1)$type, pch=16)
+#plot(pscooccur1_ord$rproj[,1:2], col=sample_data(pscooccur1)$type, pch=16)
+plot_ordination(pscooccur1, pscooccur1_ord, color = "type")
 head(sample_data(pscooccur1))
 
 ordihull(pscooccur1_ord$rproj[,1:2], sample_data(pscooccur1)$type, col=sample_data(pscooccur1)$type)
