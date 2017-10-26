@@ -17,8 +17,21 @@ library(sp)
 library(ade4)
 
 #My OTU table- old method using OTU clustering
-#pscooccur <- import_biom("16S_otu_table_newjson.biom",
-                         #parseFunction=parse_taxonomy_greengenes)
+pscooccurold <- import_biom("16S_otu_table_newjson.biom",
+                         parseFunction=parse_taxonomy_greengenes)
+
+pscooccurold1 <- prune_samples(names(which(sample_sums(pscooccurold) >= 0)),pscooccurold)
+pscooccurold1 <- prune_taxa(taxa_sums(pscooccurold1) > 11, pscooccurold1)
+sd <- import_qiime_sample_data("corn_rox.tsv")
+pscooccurold1 <- merge_phyloseq(pscooccurold1, sd)
+pscooccurold1 <- DESeq_varstab(pscooccurold1, ~1)
+
+
+#save the file as something that can be recalled when doing other fuctions
+saveRDS(pscooccurold1, file = "pscooccurold1.rds")
+#to restore: readRDS(file = "pscooccurold1.rds")
+
+##########################################################################
 
 
 # Import sequence table generated from dada2, to be used as otu_table in phyloseq
