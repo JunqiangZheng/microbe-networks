@@ -42,7 +42,8 @@ rownames(psnew) <- paste("Sample",rownames(psnew),sep="")
 # Import taxa table and create phyloseq object
 taxtabnew <- readRDS('16S_silva_taxtab_spp.Rds')
 ps <- phyloseq(otu_table(psnew, taxa_are_rows=FALSE),
-               tax_table(taxtabnew))
+               tax_table(taxtabnew)
+               )
 
 # Add mapping file, which contains sample data. The 'merge_phyloseq()' function automatically subsets
 # the phyloseq object to only include samples in the mapping file
@@ -51,7 +52,7 @@ pscooccurnew <- merge_phyloseq(ps, sd)
 
 #Accounting for error within the samples
 pscooccur1 <- prune_samples(names(which(sample_sums(pscooccurnew) >= 0)),pscooccurnew)
-pscooccur1 <- prune_taxa(taxa_sums(pscooccur1) > 11, pscooccur1)
+#pscooccur1 <- prune_taxa(taxa_sums(pscooccur1) > 11, pscooccur1)
 #sd <- import_qiime_sample_data("corn_rox.tsv")
 #pscooccur1 <- merge_phyloseq(pscooccur1, sd)
 pscooccur1 <- DESeq_varstab(pscooccur1, ~1)

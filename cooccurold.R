@@ -63,3 +63,19 @@ cooccurold.genus_16S <- cooccur(mat = otutabold.genus,
 
 summary(cooccurold.genus_16S)
 plot(cooccurold.genus_16S)
+
+
+###Prepring the files for species
+otutabold1.species <-otu_table(pscooccurold1)
+taxtabold.species <- tax_table(pscooccurold1)
+rownames(otutabold1.species) <- taxtabold.species[,7]
+otutabold1.species_pa <- transform_sample_counts(otutabold1.species,function(x)1*(x>0))
+
+cooccurold.species <- cooccur(mat = otutabold1.species_pa,
+                           type = "spp_site",
+                           thresh = TRUE,
+                           spp_names = TRUE)
+
+fumold.cooccur <- pair(cooccurold.species, "Fusarium verticilliodes", all = TRUE) 
+summary(fumold.cooccur)
+plot(fumold.cooccur)

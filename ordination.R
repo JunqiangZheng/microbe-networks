@@ -3,7 +3,7 @@ readRDS(file = "pscooccur1.rds")
 
 #What is the difference between methods... NMDS vs DCA
 
-pscooccur1_ord <- phyloseq::ordinate(pscooccur1, method = "DCA", distance = "bray")
+
 names(pscooccur1_ord)
 names(sample_data(pscooccur1))
 
@@ -26,7 +26,6 @@ head(sample_data(pscooccur1))
 pscooccur1_dis <- phyloseq::distance(pscooccur1, method = "bray")
 df <- as(sample_data(pscooccur1),"data.frame")
 adonis(pscooccur1_dis ~type, df)
-
 
 
 

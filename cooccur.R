@@ -1,6 +1,7 @@
 ###importing in the data set
 readRDS(file = "pscooccur1.rds")
 
+
 ###Cutting down the information... Grouping it by family and putting in the taxonomic names:
 pscooccur.genus <- tax_glom(pscooccur1, taxrank = "Genus")
 otutab1.genus <- otu_table(pscooccur.genus)
@@ -63,5 +64,4 @@ cooccur.genus_16S <- cooccur(mat = otutab.genus,
 )
 
 summary(cooccur.genus_16S)
-plot(cooccur.genus_16S)
- 
+plot.cooccur(cooccur.genus_16S)
