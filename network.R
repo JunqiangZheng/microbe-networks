@@ -66,3 +66,4 @@ cooccur_graph.family <- graph_from_data_frame(aa, directed=FALSE)
 vcols <- vector(length = length(V(cooccur_graph.family)))
 vcols[] <- 'brown'
 vcols[V(cooccur_graph.family) %in% aa] <- "purple"
+>>>>>>> 708ffb163bbe7b9fd27f27ce21715f3dbae0c0fd
