@@ -26,7 +26,7 @@ pscooccurold1 <- prune_taxa(taxa_sums(pscooccurold1) > 11, pscooccurold1)
 sd <- import_qiime_sample_data("corn_rox.tsv")
 pscooccurold1 <- merge_phyloseq(pscooccurold1, sd)
 pscooccurold1 <- DESeq_varstab(pscooccurold1, ~1)
-
+rename_otus(pscooccurold1)
 
 #save the file as something that can be recalled when doing other fuctions
 saveRDS(pscooccurold1, file = "pscooccurold1.rds")
@@ -58,7 +58,7 @@ pscooccur1 <- prune_samples(names(which(sample_sums(pscooccurnew) >= 0)),pscoocc
 #pscooccur1 <- merge_phyloseq(pscooccur1, sd)
 pscooccur1 <- DESeq_varstab(pscooccur1, ~1)
 
-
+rename_otus(pscooccur1)
 #save the file as something that can be recalled when doing other fuctions
 saveRDS(pscooccur1, file = "pscooccur1.rds")
 #to restore: readRDS(file = "pscooccur1.rds")

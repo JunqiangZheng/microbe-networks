@@ -1,6 +1,6 @@
 ###Import information
 pscooccur1 <- readRDS(file = "pscooccur1.rds")
-sd <- import_qiime_sample_data("corn_rox.tsv")
+sd <- sample_data(pscooccur1)
 
 
 
@@ -9,11 +9,11 @@ otutab1.species <- otu_table(pscooccur1)
 taxtab.species <- tax_table(pscooccur1)
 pscooccur1_named <- rename_otus(pscooccur1)
 
-sd <- sample_data(pscooccur1_named)
-taxtab.species.named <- tax_table(pscooccur1_named)
+
+taxtab.species.named <- tax_table(pscooccur1)
 Fus_taxon <- c("Fungi","Ascomycota","Sordariomycetes","Hypocreales","Nectriaceae","Fusarium","verticillioides")
 taxtab2 <- rbind(taxtab.species.named,"Fusarium_vertillioides"=Fus_taxon)
-tax_table(pscooccur1_named) <- taxtab2
+tax_table(pscooccur1) <- taxtab2
 otutab1.species <- otu_table(pscooccur1_named)
 otutab1.speciesfum <- rbind(otutab1.species, "Fusarium_vertillioides"= sd$fum_presence_01)
 rownames(otutab1.speciesfum) == rownames(taxtab2)
@@ -44,6 +44,10 @@ saveRDS(cooccur.species, file = "cooccur.species.rds")
 fum.cooccur <- pair(cooccur.species, "Fusarium_vertillioides", all = TRUE) 
 summary(fum.cooccur)
 plot(fum.cooccur)
+
+
+
+#####The only statistically significant one after adjusted p value - Limnobacter thioxidans
 
 
 

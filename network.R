@@ -1,35 +1,4 @@
-pscooccur1_namedfus <- readRDS(file = "pscooccur1_namedfus.rds")
 cooccur.species <- readRDS(file = "cooccur.species.rds")
-cooccur_16S.family <- readRDS(file = "cooccur_16S.family.rds")
-
-cooccur_16S.familyP <- prob.table(cooccur_16S.family)
-head(cooccur_16S.familyP, n=2)
-
-cooccur_16S.familyC <- effect.sizes(cooccur_16S.family)
-
-cooccur_16S.familyPC <- cbind(cooccur_16S.familyC, cooccur_16S.familyP)
-
-options(repr.plot.width = 10, repr.plot.height = 6)
-plot(sort(cooccur_16S.familyPC$effect), 
-     xlab='Family pairs', 
-     ylab = 'Cooccurrence effect size',
-     main='Wood endophyte cooccurrence effect sizes')
-
-cooccur_16S.familyPC$p_gt_adj <- p.adjust(cooccur_16S.familyPC$p_gt, method = "BH")
-strong_cooccur.family <- cooccur_16S.familyPC[cooccur_16S.familyPC$p_gt_adj <= 0.05,]
-### does not yield any values 
-
-
-
-
-
-
-
-Species
-
-
-
-
 
 cooccur.speciesP <- prob.table(cooccur.species)
 head(cooccur.speciesP, n=2)
@@ -40,9 +9,9 @@ cooccur.speciesPC <- cbind(cooccur.speciesC, cooccur.speciesP)
 
 options(repr.plot.width = 10, repr.plot.height = 6)
 plot(sort(cooccur.speciesPC$effect), 
-     xlab='Family pairs', 
+     xlab='Species pairs', 
      ylab = 'Cooccurrence effect size',
-     main='Wood endophyte cooccurrence effect sizes')
+     main='Endophyte cooccurrence effect sizes')
 
 cooccur.speciesPC$p_gt_adj <- p.adjust(cooccur.speciesPC$p_gt, method = "BH")
 cooccur.speciesPC$p_lt_adj <- p.adjust(cooccur.speciesPC$p_lt, method = "BH")
@@ -60,7 +29,7 @@ plot(sort(strong_cooccur.species$effect),
      ylab = 'Cooccurrence effect size',
      main='Cooccurrence effect sizes')
 
-dim(strong_cooccur.family)
+dim(strong_cooccur.species)
 
 pos <- strong_cooccur.species[,c(1, 2)]
 neg <- negative_cooccur.species[,c(1,2)]
