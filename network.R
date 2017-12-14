@@ -56,7 +56,7 @@ head(strong_cooccur.species, n=2)
 
 options(repr.plot.width = 10,repr.plot.height = 6)
 plot(sort(strong_cooccur.species$effect), 
-     xlab='Family pairs',
+     xlab='Species pairs',
      ylab = 'Cooccurrence effect size',
      main='Cooccurrence effect sizes')
 
@@ -70,9 +70,6 @@ pos.graph <- graph_from_data_frame(pos, directed = FALSE)
 neg.graph <- graph_from_data_frame(neg, directed = FALSE)
 
 
-
-
-
 vcols <- vector(length = length(V(cooccur_graph.species)))
 vcols[] <- 'black'
 vcols[which(names(V(cooccur_graph.species)) == "Fusarium_vertillioides")] <- "pink"
@@ -83,9 +80,27 @@ ecol[E(cooccur_graph.species) %in% E(pos.graph)] <- "blue"
 #ecol[(cooccur_graph.species) %in% pos.graph] <- "blue"
 #ecol[(cooccur_graph.species) %in% neg.graph] <- "red"
 
-plot(cooccur_graph.species, 
+
+#To make the same graph everytime
+set.seed(486)
+
+plot(cooccur_graph.species,
+     layout = layout_with_fr,
+     #label = TRUE,
+     #label.font = 3,
+     #label.cex = 0.75,
+     #layout = cooccur.layout,
      vertex.color = vcols, 
-     vertex.size = 10, 
+     vertex.shape = "circle",
+     vertex.label.cex = 0.75,
+     vertex.size = 7, 
      vertex.label = NA, 
      edge.color = ecol,
-     edge.width = 5)
+     edge.width = 1.5)
+#legends for the lines
+legend(x = -0.75, y = -1.3, 
+       #frame = FALSE,
+       legend=c("Positive", "Negative"), 
+       col = c("blue", "red"), 
+       lty = (1)
+       )
