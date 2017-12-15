@@ -7,7 +7,6 @@ sd <- sample_data(pscooccur1)
 
 otutab1.species <- otu_table(pscooccur1)
 taxtab.species <- tax_table(pscooccur1)
-pscooccur1_named <- rename_otus(pscooccur1)
 
 
 taxtab.species.named <- tax_table(pscooccur1)
