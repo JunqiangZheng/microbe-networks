@@ -13,15 +13,16 @@ taxtab.species.named <- tax_table(pscooccur1)
 Fus_taxon <- c("Fungi","Ascomycota","Sordariomycetes","Hypocreales","Nectriaceae","Fusarium","verticillioides")
 taxtab2 <- rbind(taxtab.species.named,"Fusarium_vertillioides"=Fus_taxon)
 tax_table(pscooccur1) <- taxtab2
-otutab1.species <- otu_table(pscooccur1_named)
-otutab1.speciesfum <- rbind(otutab1.species, "Fusarium_vertillioides"= sd$fum_presence_01)
-rownames(otutab1.speciesfum) == rownames(taxtab2)
-
-otutab1.speciesfum <- matrix(otutab1.speciesfum)
+otutab1.species <- otu_table(pscooccur1)
+otutab1.speciesfum <- matrix(otutab1.species)
 
 rownames(otutab1.speciesfum) == rownames(taxtab2)
 
-pscooccur1_namedfus <- phyloseq(otu_table(otutab1.speciesfum, taxa_are_rows = TRUE),
+
+
+rownames(otutab1.speciesfum) == rownames(taxtab2)
+
+pscooccur1_namedfus <- phyloseq(otu_table(otutab1.species, taxa_are_rows = TRUE),
                                 tax_table(taxtab2),
                                 sample_data(sd)
                                 )
@@ -49,5 +50,18 @@ plot(fum.cooccur)
 #####The only statistically significant one after adjusted p value - Limnobacter thioxidans
 
 
+##Now looking to see if there are any that cooccur with fus amount
+species_otu_pa <- transform_sample_counts(otutab1.species,function(x)1*(x>0))
+otutab1.speciesfumamount <- rbind(otutab1.species, "Fusarium_vertillioides"= sd$log_avg_copies_fum)
+
+pscooccur1_namedfusabundance <- phyloseq(otu_table(otutab1.speciesfumamount, taxa_are_rows = TRUE),
+                                tax_table(taxtab2),
+                                sample_data(sd)
+)
+
+cooccur.species.fusabundance <- cooccur(mat = otu_table(pscooccur1_namedfusabundance),
+                           type = "spp_site",
+                           thresh = TRUE,
+                           spp_names = TRUE)
 
 

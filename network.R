@@ -49,6 +49,13 @@ ecol[E(cooccur_graph.species) %in% E(pos.graph)] <- "blue"
 #ecol[(cooccur_graph.species) %in% pos.graph] <- "blue"
 #ecol[(cooccur_graph.species) %in% neg.graph] <- "red"
 
+vertex <- names(V(cooccur_graph.species))
+taxa_names(pscooccur1_namedfus)
+pscooccur1_names_fus <- rename_otus(pscooccur1_namedfus)
+ps_vertices <- prune_taxa(taxa_names(pscooccur1_namedfus) %in% vertex,pscooccur1_namedfus)
+vsize <- as.data.frame(taxa_sums())
+vsize <- count(1:nrow(vertex) %in% )))
+
 
 #To make the same graph everytime
 set.seed(486)
