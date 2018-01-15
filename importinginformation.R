@@ -29,14 +29,14 @@ pscooccurold1 <- DESeq_varstab(pscooccurold1, ~1)
 rename_otus(pscooccurold1)
 
 #save the file as something that can be recalled when doing other fuctions
-saveRDS(pscooccurold1, file = "pscooccurold1.rds")
-#to restore: readRDS(file = "pscooccurold1.rds")
+saveRDS(pscooccurold1, file = "rds/pscooccurold1.rds")
+#to restore: readRDS(file = "rds/pscooccurold1.rds")
 
 ##########################################################################
 
 
 # Import sequence table generated from dada2, to be used as otu_table in phyloseq
-psnew <- readRDS('16S_seqtab.Rds')
+psnew <- readRDS('rds/16S_seqtab.Rds')
 # Rename samples names to include "Sample" in front of each sample number
 rownames(psnew) <- paste("Sample",rownames(psnew),sep="")
 
@@ -53,19 +53,15 @@ pscooccurnew <- merge_phyloseq(ps, sd)
 
 #Accounting for error within the samples
 pscooccur1 <- prune_samples(names(which(sample_sums(pscooccurnew) >= 0)),pscooccurnew)
-
-#Adjust the values to more correctly reflect the abundance
+#pscooccur1 <- prune_taxa(taxa_sums(pscooccur1) > 11, pscooccur1)
+#sd <- import_qiime_sample_data("corn_rox.tsv")
+#pscooccur1 <- merge_phyloseq(pscooccur1, sd)
 pscooccur1 <- DESeq_varstab(pscooccur1, ~1)
 
-# Remove undefined, non-bacterial, and Chloroplast sequences
-pscooccur1 <- subset_taxa(pscooccur1, !is.na(Phylum) & !Phylum %in% c("", "uncharacterized"))
-pscooccur1 <- subset_taxa(pscooccur1, !Class %in% "Chloroplast")
-pscooccur1 <- subset_taxa(pscooccur1, Kingdom %in% "Bacteria")
-
-pscooccur1 <- rename_otus(pscooccur1)
+rename_otus(pscooccur1)
 #save the file as something that can be recalled when doing other fuctions
-saveRDS(pscooccur1, file = "pscooccur1.rds")
-#to restore: readRDS(file = "pscooccur1.rds")
+saveRDS(pscooccur1, file = "rds/pscooccur1.rds")
+#to restore: readRDS(file = "rds/pscooccur1.rds")
 
 
 

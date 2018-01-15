@@ -1,5 +1,5 @@
 ###Import information
-pscooccur1 <- readRDS(file = "pscooccur1.rds")
+pscooccur1 <- readRDS(file = "rds/pscooccur1.rds")
 sd <- sample_data(pscooccur1)
 
 
@@ -27,7 +27,7 @@ pscooccur1_namedfus <- phyloseq(otu_table(otutab1.species, taxa_are_rows = TRUE)
                                 sample_data(sd)
                                 )
 
-saveRDS(pscooccur1_namedfus, file = "pscooccur1_namedfus.rds")
+saveRDS(pscooccur1_namedfus, file = "rds/pscooccur1_namedfus.rds")
 
 ###Change to presence absence
 fus_pa <- transform_sample_counts(pscooccur1_namedfus,function(x)1*(x>0))
@@ -38,11 +38,11 @@ cooccur.species <- cooccur(mat = otu_table(fus_pa),
                            thresh = TRUE,
                            spp_names = TRUE)
 
-saveRDS(cooccur.species, file = "cooccur.species.rds")
+saveRDS(cooccur.species, file = "rds/cooccur.species.rds")
 
 ###check to see the interactions with fusarium
 fum.cooccur <- pair(cooccur.species, "Fusarium_vertillioides", all = TRUE) 
-summary(fum.cooccur)
+summary(fum.cooccur, "Fusarium_vertillioides")
 plot(fum.cooccur)
 
 

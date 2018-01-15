@@ -1,4 +1,4 @@
-cooccur.species <- readRDS(file = "cooccur.species.rds")
+cooccur.species <- readRDS(file = "rds/cooccur.species.rds")
 
 cooccur.speciesP <- prob.table(cooccur.species)
 head(cooccur.speciesP, n=2)
@@ -31,6 +31,12 @@ plot(sort(strong_cooccur.species$effect),
 
 dim(strong_cooccur.species)
 
+pos.effect <- strong_cooccur.species[,c(1, 2, 3)]
+neg.effect <- negative_cooccur.species[,c(1, 2, 3)]
+neg.effect$effects <- abs(neg.effect$effects)
+posneg.effect <- rbind(pos.effect, neg.effect)
+posneg.effect$effects <- posneg.effect$effects * 100
+
 pos <- strong_cooccur.species[,c(1, 2)]
 neg <- negative_cooccur.species[,c(1,2)]
 posneg <- rbind(pos, neg)
@@ -50,11 +56,8 @@ ecol[E(cooccur_graph.species) %in% E(pos.graph)] <- "blue"
 #ecol[(cooccur_graph.species) %in% neg.graph] <- "red"
 
 vertex <- names(V(cooccur_graph.species))
-taxa_names(pscooccur1_namedfus)
-pscooccur1_names_fus <- rename_otus(pscooccur1_namedfus)
 ps_vertices <- prune_taxa(taxa_names(pscooccur1_namedfus) %in% vertex,pscooccur1_namedfus)
-vsize <- as.data.frame(taxa_sums())
-vsize <- count(1:nrow(vertex) %in% )))
+vsize.taxasums <- as.data.frame(taxa_sums(ps_vertices))
 
 
 #To make the same graph everytime
@@ -69,10 +72,10 @@ plot(cooccur_graph.species,
      vertex.color = vcols, 
      vertex.shape = "circle",
      vertex.label.cex = 0.75,
-     vertex.size = 7, 
+     vertex.size = vsize.taxasums, 
      vertex.label = NA, 
      edge.color = ecol,
-     edge.width = 1.5)
+     edge.width = posneg.effect$effects)
 #legends for the lines
 legend(x = -0.75, y = -1.3, 
        #frame = FALSE,
