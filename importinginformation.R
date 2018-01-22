@@ -64,5 +64,13 @@ saveRDS(pscooccur1, file = "rds/pscooccur1.rds")
 #to restore: readRDS(file = "rds/pscooccur1.rds")
 
 
+ps.both.raw<- readRDS(file = "rds/combined.both_crn.ps.Rds")
+ps.bothnew<- DESeq_varstab(ps.bothnew, ~1)
+saveRDS(ps.bothnew, file = "rds/combined.both_crn.ps.deseq.Rds")
+
+ps.ITS.raw <- readRDS(file = "rds/ITS_crn.ps.Rds")
+ps.ITSnew <- DESeq_varstab(ps.ITS, ~1)
+saveRDS(ps.ITSnew, file = "rds/ITS_crn.ps.deseq.Rds")
+
 
 
