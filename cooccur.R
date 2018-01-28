@@ -1,5 +1,5 @@
 ###importing in the data set
-pscooccur1 <- readRDS(file = "pscooccur1.rds")
+pscooccur1 <- readRDS(file = "rds/pscooccur1.rds")
 
 
 ###Cutting down the information... Grouping it by family and putting in the taxonomic names:
