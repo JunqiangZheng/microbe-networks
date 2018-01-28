@@ -69,7 +69,7 @@ ps.bothnew<- DESeq_varstab(ps.bothnew, ~1)
 saveRDS(ps.bothnew, file = "rds/combined.both_crn.ps.deseq.Rds")
 
 ps.ITS.raw <- readRDS(file = "rds/ITS_crn.ps.Rds")
-ps.ITSnew <- DESeq_varstab(ps.ITS, ~1)
+ps.ITSnew <- DESeq_varstab(ps.ITS.raw, ~1)
 saveRDS(ps.ITSnew, file = "rds/ITS_crn.ps.deseq.Rds")
 
 
