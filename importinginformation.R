@@ -17,6 +17,7 @@ library(knitr)
 library(sp)
 library(ade4)
 library(igraph)
+library(SpiecEasi)
 
 #My OTU table- old method using OTU clustering
 pscooccurold <- import_biom("16S_otu_table_newjson.biom",

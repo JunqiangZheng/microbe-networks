@@ -59,6 +59,7 @@ ecol[E(cooccur_graph.species) %in% E(pos.graph)] <- "blue"
 vertex <- names(V(cooccur_graph.species))
 ps_vertices <- prune_taxa(taxa_names(pscooccur1_namedfus) %in% vertex,pscooccur1_namedfus)
 vsize.taxasums <- as.data.frame(taxa_sums(ps_vertices))
+vsize.taxasums1 <- cbind(vsize.taxasums, colors) 
 
 
 #To make the same graph everytime
