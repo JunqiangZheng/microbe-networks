@@ -77,7 +77,6 @@ threshold.ITS <- 0.1*nsamples(ps.ITS)
 ez.ITS <-filter_taxa(ps.ITS,function(x)sum(x>0)>=threshold.ITS,TRUE)
 
 spiec.out.ITS <- spiec.easi(otu_table(ez.ITS), method="mb",icov.select.params=list(rep.num=20, nc=1))
-##Error in parallel::mclapply(1:rep.num, function(i) { : 'mc.cores' > 1 is not supported on Windows
 spiec.graph.ITS <- adj2igraph(spiec.out.ITS$refit, vertex.attr=list(name=taxa_names(ez.ITS)))
 plot_network(spiec.graph.ITS, ez.ITS, type='taxa', color="Class", label=NULL)
 
