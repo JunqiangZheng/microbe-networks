@@ -1,4 +1,4 @@
-setwd("~/Documents")
+setwd("~/Desktop/Github/seed-microbes")
 
 ##to create biom... 
 ## python.call(make_otu_table.py -i fileascsv.txt -o file.biom -t rep_set tax_assignments.txt)
@@ -66,13 +66,13 @@ saveRDS(pscooccur1, file = "rds/pscooccur1.rds")
 #to restore: readRDS(file = "rds/pscooccur1.rds")
 
 
-ps.both.raw<- readRDS(file = "rds/combined.both_crn.ps.Rds")
-ps.bothnew<- DESeq_varstab(ps.bothnew, ~1)
-saveRDS(ps.bothnew, file = "rds/combined.both_crn.ps.deseq.Rds")
+ps.both.raw<- readRDS(file = "rds/combined.both_crn.ps-new.Rds")
+ps.bothnew<- DESeq_varstab(ps.both.raw, ~1)
+saveRDS(ps.bothnew, file = "rds/combined.both_crn.ps.deseq-new.Rds")
 
-ps.ITS.raw <- readRDS(file = "rds/ITS_crn.ps.Rds")
+ps.ITS.raw <- readRDS(file = "rds/ITS_crn.ps-new.Rds")
 ps.ITSnew <- DESeq_varstab(ps.ITS.raw, ~1)
-saveRDS(ps.ITSnew, file = "rds/ITS_crn.ps.deseq.Rds")
+saveRDS(ps.ITSnew, file = "rds/ITS_crn.ps.deseq-new.Rds")
 
 
 

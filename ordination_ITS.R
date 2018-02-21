@@ -1,5 +1,5 @@
 #Import data
-ps.ITS <- readRDS(file = "rds/ITS_crn.ps.deseq.Rds")
+ps.ITS <- readRDS(file = "rds/ITS_crn.ps.deseq-new.Rds")
 
 #What kind of metadata can we look at to see if there is a significant difference in the community structure
 names(sample_data(ps.ITS))
