@@ -1,4 +1,4 @@
-setwd("~/Documents")
+setwd("~/Desktop/Github/seed-microbes")
 
 ##to create biom... 
 ## python.call(make_otu_table.py -i fileascsv.txt -o file.biom -t rep_set tax_assignments.txt)
@@ -19,6 +19,8 @@ library(ade4)
 library(igraph)
 library(SpiecEasi)
 
+
+#old methods############################
 #My OTU table- old method using OTU clustering
 pscooccurold <- import_biom("16S_otu_table_newjson.biom",
                          parseFunction=parse_taxonomy_greengenes)
@@ -33,8 +35,6 @@ rename_otus(pscooccurold1)
 #save the file as something that can be recalled when doing other fuctions
 saveRDS(pscooccurold1, file = "rds/pscooccurold1.rds")
 #to restore: readRDS(file = "rds/pscooccurold1.rds")
-
-##########################################################################
 
 
 # Import sequence table generated from dada2, to be used as otu_table in phyloseq
@@ -65,14 +65,18 @@ rename_otus(pscooccur1)
 saveRDS(pscooccur1, file = "rds/pscooccur1.rds")
 #to restore: readRDS(file = "rds/pscooccur1.rds")
 
+#ITS, 16S, and both - final##########################################
+ps.16S.raw<- readRDS(file = "rds/16S_crn.ps-new.Rds")
+ps.16S.new<- DESeq_varstab(ps.16S.raw, ~1)
+saveRDS(ps.16S.new, file = "rds/16S_crn.ps.deseq-new.Rds")
 
-ps.both.raw<- readRDS(file = "rds/combined.both_crn.ps.Rds")
-ps.bothnew<- DESeq_varstab(ps.bothnew, ~1)
-saveRDS(ps.bothnew, file = "rds/combined.both_crn.ps.deseq.Rds")
+ps.both.raw<- readRDS(file = "rds/combined.both_crn.ps-new.Rds")
+ps.bothnew<- DESeq_varstab(ps.both.raw, ~1)
+saveRDS(ps.bothnew, file = "rds/combined.both_crn.ps.deseq-new.Rds")
 
-ps.ITS.raw <- readRDS(file = "rds/ITS_crn.ps.Rds")
+ps.ITS.raw <- readRDS(file = "rds/ITS_crn.ps-new.Rds")
 ps.ITSnew <- DESeq_varstab(ps.ITS.raw, ~1)
-saveRDS(ps.ITSnew, file = "rds/ITS_crn.ps.deseq.Rds")
+saveRDS(ps.ITSnew, file = "rds/ITS_crn.ps.deseq-new.Rds")
 
 
 
