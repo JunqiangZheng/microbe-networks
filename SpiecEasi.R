@@ -98,3 +98,4 @@ sparcc.graph.ITS <- Matrix(sparcc.graph.ITS, sparse=TRUE)
 ig.sparcc.ITS <- adj2igraph(sparcc.graph.ITS, vertex.attr=list(name=taxa_names(ez.ITS)))
 plot(ig.sparcc.ITS, vertex.label=NA, vertex.size = 1, main="sparcc")
 plot_network(ig.sparcc.ITS, ez.ITS, type='taxa', color="Class", label=NULL)
+
