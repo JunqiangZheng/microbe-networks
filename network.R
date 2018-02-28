@@ -89,7 +89,6 @@ legend(x = -0.75, y = -1.3,
 
 
 
-#####Nothing significant in the ITS or both#######
 #ITS###################################################################
 cooccur.ITS <- readRDS(file = "rds/cooccur.ITS.rds")
 
@@ -133,7 +132,7 @@ neg.graph.ITS <- graph_from_data_frame(neg.ITS, directed = FALSE)
 
 
 vcols.ITS <- vector(length = length(V(cooccur_graph.ITS)))
-vcols.ITs[] <- 'black'
+vcols.ITS[] <- 'black'
 vcols.ITS[which(names(V(cooccur_graph.ITS)) == "Fusarium_vertillioides")] <- "pink"
 ecol.ITS <- rep("red", ecount(cooccur_graph.ITS))
 ecol.ITS[E(cooccur_graph.ITS) %in% E(pos.graph.ITS)] <- "blue"
@@ -146,6 +145,7 @@ vertex.ITS <- names(V(cooccur_graph.ITS))
 ps_vertices.ITS <- prune_taxa(taxa_names(ps.ITS) %in% vertex.ITS,ps.ITS)
 vsize.taxasums.ITS <- as.data.frame(taxa_sums(ps_vertices.ITS))
 
+plot(cooccur_graph.ITS)
 
 #both##################################################################
 cooccur.both <- readRDS(file = "rds/cooccur.both.rds")
@@ -203,6 +203,7 @@ vertex <- names(V(cooccur_graph.both))
 ps_vertices <- prune_taxa(taxa_names(ps.both) %in% vertex,ps.both)
 vsize.taxasums <- as.data.frame(taxa_sums(ps_vertices))
 
+plot(cooccur_graph.both)
 
 
 
