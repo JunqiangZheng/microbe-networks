@@ -74,7 +74,7 @@ plot(cooccur_graph.species,
      vertex.color = vcols, 
      vertex.shape = "circle",
      vertex.label.cex = 0.75,
-     vertex.size = vsize.taxasums, 
+     #vertex.size = vsize.taxasums, 
      vertex.label = NA, 
      edge.color = ecol,
      edge.width = posneg.effect$effects)
@@ -89,7 +89,6 @@ legend(x = -0.75, y = -1.3,
 
 
 
-#####Nothing significant in the ITS or both#######
 #ITS###################################################################
 cooccur.ITS <- readRDS(file = "rds/cooccur.ITS.rds")
 
@@ -133,7 +132,7 @@ neg.graph.ITS <- graph_from_data_frame(neg.ITS, directed = FALSE)
 
 
 vcols.ITS <- vector(length = length(V(cooccur_graph.ITS)))
-vcols.ITs[] <- 'black'
+vcols.IT[] <- 'black'
 vcols.ITS[which(names(V(cooccur_graph.ITS)) == "Fusarium_vertillioides")] <- "pink"
 ecol.ITS <- rep("red", ecount(cooccur_graph.ITS))
 ecol.ITS[E(cooccur_graph.ITS) %in% E(pos.graph.ITS)] <- "blue"
