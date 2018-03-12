@@ -74,7 +74,7 @@ plot(cooccur_graph.species,
      vertex.color = vcols, 
      vertex.shape = "circle",
      vertex.label.cex = 0.75,
-     vertex.size = vsize.taxasums, 
+     #vertex.size = vsize.taxasums, 
      vertex.label = NA, 
      edge.color = ecol,
      edge.width = posneg.effect$effects)
@@ -132,7 +132,11 @@ neg.graph.ITS <- graph_from_data_frame(neg.ITS, directed = FALSE)
 
 
 vcols.ITS <- vector(length = length(V(cooccur_graph.ITS)))
+<<<<<<< HEAD
 vcols.ITS[] <- 'black'
+=======
+vcols.IT[] <- 'black'
+>>>>>>> b4eeb8b0f1f07b2c4df6bd0139cdb6bd3a44fe33
 vcols.ITS[which(names(V(cooccur_graph.ITS)) == "Fusarium_vertillioides")] <- "pink"
 ecol.ITS <- rep("red", ecount(cooccur_graph.ITS))
 ecol.ITS[E(cooccur_graph.ITS) %in% E(pos.graph.ITS)] <- "blue"
