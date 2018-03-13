@@ -74,19 +74,21 @@ prune.ps <- function(ps, cutoff=0.01,prop_samp=0.1){
 }
 
 ps.16S.raw<- readRDS(file = "rds/16S_crn.ps-new.Rds")
-prune.ps(ps.16S.raw)
 ps.16S.new<- DESeq_varstab(ps.16S.raw, ~1)
+ps.16S.new10 <- prune.ps(ps.16S.raw)
 saveRDS(ps.16S.new, file = "rds/16S_crn.ps.deseq-new.Rds")
+saveRDS(ps.16S.new10, file = "rds/16S_crn.ps.deseq-new10.Rds")
 
 ps.both.raw<- readRDS(file = "rds/combined.both_crn.ps-new.Rds")
-prune.ps(ps.both.raw)
 ps.bothnew<- DESeq_varstab(ps.both.raw, ~1)
+ps.both.new10 <- prune.ps(ps.both.raw)
 saveRDS(ps.bothnew, file = "rds/combined.both_crn.ps.deseq-new.Rds")
+saveRDS(ps.bothnew10, file = "rds/combined.both_crn.ps.deseq-new10.Rds")
 
 ps.ITS.raw <- readRDS(file = "rds/ITS_crn.ps-new.Rds")
-prune.ps(ps.ITS.raw)
-ps.ITSnew <- DESeq_varstab(ps.ITS.raw, ~1)
-saveRDS(ps.ITSnew, file = "rds/ITS_crn.ps.deseq-new.Rds")
+ps.ITS.new <- DESeq_varstab(ps.ITS.raw, ~1)
+ps.ITS.new10 <- prune.ps(ps.ITS.raw)
+saveRDS(ps.ITS.new, file = "rds/ITS_crn.ps.deseq-new.Rds")
 
 
 
