@@ -12,9 +12,11 @@ ps.16S_df <- as(sample_data(ps.16S),"data.frame")
 
 for (i in c(ps.16S_dis ~type,ps.16S_dis ~year,ps.16S_dis ~grower_ID,ps.16S_dis ~fum_presence)){
     z <- adonis(i, ps.16S_df)
-    results <- rbind(as.data.frame(z$aov.tab)[1,])
-    print(results)
+    x <- as.data.frame(z$aov.tab)[1,]
+    results_16S <- rbind(results, x)
 }
+print(results_16S)
+write.csv(results_16S, "images/ordination_16S.csv")
 
 col.pal <- wes_palette(n = 6, name = "Darjeeling2", type = "continuous")
 palette(col.pal)
@@ -31,9 +33,16 @@ ps.ITS_dis <- phyloseq::distance(ps.ITS, method = "bray")
 ps.ITS_ord1<- ordinate(ps.ITS, method ="NMDS", ps.ITS_dis)
 
 #look into using vegan-adonis to determine statistical significance
-df.ITS <- as(sample_data(ps.ITS),"data.frame")
+ps.ITS_df <- as(sample_data(ps.ITS),"data.frame")
 adonis(ps.ITS_dis ~grower_ID+type, df.ITS)
 
+for (i in c(ps.ITS_dis ~type,ps.ITS_dis ~year,ps.ITS_dis ~grower_ID,ps.ITS_dis ~fum_presence)){
+  z <- adonis(i, ps.ITS_df)
+  x <- as.data.frame(z$aov.tab)[1,]
+  results_ITS <- rbind(results, x)
+}
+print(results_ITS)
+write.csv(results_ITS, "images/ordination_ITS.csv")
 
 col.pal <- wes_palette(n = 6, name = "Darjeeling2", type = "continuous")
 palette(col.pal)
