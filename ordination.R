@@ -10,7 +10,7 @@ ps.16S_ord<- ordinate(ps.16S, method ="NMDS", ps.16S_dis)
 ps.16S_df <- as(sample_data(ps.16S),"data.frame")
 
 
-for (i in c(ps.16S_dis ~type,ps.16S_dis ~year,ps.16S_dis ~grower_ID,ps.16S_dis ~fum_presence)){
+for (i in c(ps.16S_dis~type,ps.16S_dis~year,ps.16S_dis~grower_ID,ps.16S_dis~fum_presence)){
     z <- adonis(i, ps.16S_df)
     x <- as.data.frame(z$aov.tab)[1,]
     results_16S <- rbind(results, x)
@@ -34,7 +34,7 @@ ps.ITS_ord1<- ordinate(ps.ITS, method ="NMDS", ps.ITS_dis)
 
 #look into using vegan-adonis to determine statistical significance
 ps.ITS_df <- as(sample_data(ps.ITS),"data.frame")
-adonis(ps.ITS_dis ~grower_ID+type, df.ITS)
+adonis(ps.ITS_dis ~grower_ID+type, ps.ITS_df)
 
 for (i in c(ps.ITS_dis ~type,ps.ITS_dis ~year,ps.ITS_dis ~grower_ID,ps.ITS_dis ~fum_presence)){
   z <- adonis(i, ps.ITS_df)

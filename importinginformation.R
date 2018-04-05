@@ -17,7 +17,6 @@ library(knitr)
 library(sp)
 library(ade4)
 library(igraph)
-library(SpiecEasi)
 
 
 #old methods############################
@@ -80,7 +79,7 @@ saveRDS(ps.16S.new, file = "rds/16S_crn.ps.deseq-new.Rds")
 saveRDS(ps.16S.new10, file = "rds/16S_crn.ps.deseq-new10.Rds")
 
 ps.both.raw<- readRDS(file = "rds/combined.both_crn.ps-new.Rds")
-ps.bothnew<- DESeq_varstab(ps.both.raw, ~1)
+ps.both.new<- DESeq_varstab(ps.both.raw, ~1)
 ps.both.new10 <- prune.ps(ps.both.new)
 saveRDS(ps.bothnew, file = "rds/combined.both_crn.ps.deseq-new.Rds")
 saveRDS(ps.bothnew10, file = "rds/combined.both_crn.ps.deseq-new10.Rds")
