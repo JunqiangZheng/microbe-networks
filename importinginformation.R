@@ -82,7 +82,7 @@ ps.both.raw<- readRDS(file = "rds/combined.both_crn.ps-new.Rds")
 ps.both.new<- DESeq_varstab(ps.both.raw, ~1)
 ps.both.new10 <- prune.ps(ps.both.new)
 saveRDS(ps.bothnew, file = "rds/combined.both_crn.ps.deseq-new.Rds")
-saveRDS(ps.bothnew10, file = "rds/combined.both_crn.ps.deseq-new10.Rds")
+saveRDS(ps.both.new10, file = "rds/combined.both_crn.ps.deseq-new10.Rds")
 
 ps.ITS.raw <- readRDS(file = "rds/ITS_crn.ps-new.Rds")
 ps.ITS.new <- DESeq_varstab(ps.ITS.raw, ~1)
