@@ -64,7 +64,6 @@ vsize.taxasums1 <- cbind(vsize.taxasums, colors)
 
 #To make the same graph everytime
 set.seed(486)
-
 plot(cooccur_graph.species,
      layout = layout_with_fr,
      #label = TRUE,
@@ -132,11 +131,7 @@ neg.graph.ITS <- graph_from_data_frame(neg.ITS, directed = FALSE)
 
 
 vcols.ITS <- vector(length = length(V(cooccur_graph.ITS)))
-<<<<<<< HEAD
 vcols.ITS[] <- 'black'
-=======
-vcols.IT[] <- 'black'
->>>>>>> b4eeb8b0f1f07b2c4df6bd0139cdb6bd3a44fe33
 vcols.ITS[which(names(V(cooccur_graph.ITS)) == "Fusarium_vertillioides")] <- "pink"
 ecol.ITS <- rep("red", ecount(cooccur_graph.ITS))
 ecol.ITS[E(cooccur_graph.ITS) %in% E(pos.graph.ITS)] <- "blue"
@@ -149,8 +144,21 @@ vertex.ITS <- names(V(cooccur_graph.ITS))
 ps_vertices.ITS <- prune_taxa(taxa_names(ps.ITS) %in% vertex.ITS,ps.ITS)
 vsize.taxasums.ITS <- as.data.frame(taxa_sums(ps_vertices.ITS))
 
-plot(cooccur_graph.ITS)
 
+set.seed(486)
+plot(cooccur_graph.ITS,
+     layout = layout_with_fr,
+     #label = TRUE,
+     #label.font = 3,
+     #label.cex = 0.75,
+     #layout = cooccur.layout,
+     vertex.color = vcols.ITS, 
+     vertex.shape = "circle",
+     vertex.label.cex = 0.75,
+     #vertex.size = vsize.taxasums, 
+     vertex.label = NA, 
+     edge.color = ecol.ITS,
+     edge.width = posneg.ITS.effect$effects)
 #both##################################################################
 cooccur.both <- readRDS(file = "rds/cooccur.both.rds")
 
