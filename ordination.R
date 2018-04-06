@@ -42,11 +42,11 @@ ps.ITS_ord1<- ordinate(ps.ITS, method ="NMDS", ps.ITS_dis)
 #look into using vegan-adonis to determine statistical significance
 ps.ITS_df <- as(sample_data(ps.ITS),"data.frame")
 
-type+grower.ITS <- adonis(ps.ITS_dis ~type+grower_ID, ps.ITS_df)
-write.csv(type+grower, "images/ordination_type+growerITS.csv")
+type_grower.ITS <- as.data.frame(adonis(ps.ITS_dis ~type+grower_ID, ps.ITS_df)$aov.tab)
+write.csv(type_grower.ITS, "images/ordination_type+growerITS.csv")
 
-grower+type.ITS <- adonis(ps.ITS_dis ~grower_ID+type, ps.ITS_df)
-write.csv(grower+type, "images/ordination_grower+typeITS.csv")
+grower_type.ITS <- as.data.frame(adonis(ps.ITS_dis ~grower_ID+type, ps.ITS_df)$aov.tab)
+write.csv(grower_type.ITS, "images/ordination_grower+typeITS.csv")
 
 type_ITS <- adonis(ps.ITS_dis~type, ps.ITS_df)
 results_ITS <- as.data.frame(type_ITS$aov.tab)[1:3,]
