@@ -36,7 +36,7 @@ saveRDS(cooccur_ITS, file = "rds/cooccur.ITS.10.rds")
 
 ##both######################
 ###importing in the data set
-psboth <- readRDS(file = "rds/combined.both_crn.ps.deseq-new.Rds")
+psboth <- readRDS(file = "rds/combined.both_crn.ps.deseq-new10.Rds")
 
 #Running the cooccur function for family:
 pscooccurboth_pruned <- prune_samples(names(which(sample_sums(psboth) >= 0)), psboth)

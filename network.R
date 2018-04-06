@@ -1,5 +1,5 @@
 #16S##############################################################
-cooccur.species <- readRDS(file = "rds/cooccur.species.rds")
+cooccur.species <- readRDS(file = "rds/cooccur.species.10.rds")
 
 cooccur.speciesP <- prob.table(cooccur.species)
 head(cooccur.speciesP, n=2)
@@ -88,7 +88,7 @@ legend(x = -0.75, y = -1.3,
 
 
 #ITS###################################################################
-cooccur.ITS <- readRDS(file = "rds/cooccur.ITS.rds")
+cooccur.ITS <- readRDS(file = "rds/cooccur.ITS.10.rds")
 
 cooccur.ITSP <- prob.table(cooccur.ITS)
 head(cooccur.ITSP, n=2)

@@ -10,10 +10,16 @@ ps.16S_ord<- ordinate(ps.16S, method ="NMDS", ps.16S_dis)
 ps.16S_df <- as(sample_data(ps.16S),"data.frame")
 
 type_16S <- adonis(ps.16S_dis~type, ps.16S_df)
-results_16S <- as.data.frame(type_16S$aov.tab)[1,]
-for (i in c(ps.16S_dis~year,ps.16S_dis~grower_ID,ps.16S_dis~fum_presence)){
-    z <- adonis(i, ps.16S_df)
-    x <- as.data.frame(z$aov.tab)[1,]
+results_16S <- as.data.frame(type_16S$aov.tab)[1:3,]
+rownames(results_16S)[2] = paste(rownames(results_16S)[1],'.',rownames(results_16S)[2], sep= "")
+rownames(results_16S)[3] = paste(rownames(results_16S)[1],'.',rownames(results_16S)[3], sep="")
+
+for (i in c("year","grower_ID","fum_presence")){
+    form <- formula(paste("ps.16S_dis~",i))
+    z <- adonis(form, ps.16S_df)
+    x <- as.data.frame(z$aov.tab)[1:3,]
+    rownames(x)[2] = paste(rownames(x)[1],'.',rownames(x)[2], sep="")
+    rownames(x)[3] = paste(rownames(x)[1],'.',rownames(x)[3], sep="")
     results_16S <- rbind(results_16S, x)
 }
 print(results_16S)
@@ -35,13 +41,22 @@ ps.ITS_ord1<- ordinate(ps.ITS, method ="NMDS", ps.ITS_dis)
 
 #look into using vegan-adonis to determine statistical significance
 ps.ITS_df <- as(sample_data(ps.ITS),"data.frame")
-adonis(ps.ITS_dis ~grower_ID*type, ps.ITS_df)
+
+type+grower.ITS <- adonis(ps.ITS_dis ~type+grower_ID, ps.ITS_df)
+write.csv(type+grower, "images/ordination_type+growerITS.csv")
+
+grower+type.ITS <- adonis(ps.ITS_dis ~grower_ID+type, ps.ITS_df)
+write.csv(grower+type, "images/ordination_grower+typeITS.csv")
 
 type_ITS <- adonis(ps.ITS_dis~type, ps.ITS_df)
-results_ITS <- as.data.frame(type_ITS$aov.tab)[1,]
+results_ITS <- as.data.frame(type_ITS$aov.tab)[1:3,]
+rownames(results_ITS)[2] = paste(rownames(results_ITS)[1],'.',rownames(results_ITS)[2], sep="")
+rownames(results_ITS)[3] = paste(rownames(results_ITS)[1],'.',rownames(results_ITS)[3], sep="")
 for (i in c(ps.ITS_dis ~year,ps.ITS_dis ~grower_ID,ps.ITS_dis ~fum_presence)){
   z <- adonis(i, ps.ITS_df)
-  x <- as.data.frame(z$aov.tab)[1,]
+  x <- as.data.frame(z$aov.tab)[1:3,]
+  rownames(x)[2] = paste(rownames(x)[1],'.',rownames(x)[2], sep="")
+  rownames(x)[3] = paste(rownames(x)[1],'.',rownames(x)[3], sep="")
   results_ITS <- rbind(results_ITS, x)
 }
 print(results_ITS)
