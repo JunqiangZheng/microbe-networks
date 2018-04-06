@@ -13,7 +13,7 @@ otutab16S <- otu_table(pscooccur16S_pruned_pa)
 
 #Running the cooccur function for family:
 cooccur.species <- cooccur(mat = otutab16S,
-                      type = "spp_site")
+                           spp_names = TRUE)
 saveRDS(cooccur.species, file = "rds/cooccur.species.10.rds")
            
 ##ITS##########################
@@ -31,7 +31,7 @@ otutabITS <- otu_table(pscooccurITS_pruned_pa)
 
 #Running the cooccur function for family:
 cooccur_ITS <- cooccur(mat = otutabITS,
-                       type = "spp_site")
+                       spp_names = TRUE)
 saveRDS(cooccur_ITS, file = "rds/cooccur.ITS.10.rds")
 
 ##both######################
@@ -49,7 +49,7 @@ otutab.both <- otu_table(pscooccurboth_pruned_pa)
 
 #Running the cooccur function for family:
 cooccur_both <- cooccur(mat = otutab.both,
-                       type = "spp_site")
+                        spp_names = TRUE)
 
 saveRDS(cooccur_both, file = "rds/cooccur.both.10.rds")
 
