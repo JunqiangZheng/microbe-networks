@@ -64,7 +64,7 @@ vsize.taxasums1 <- cbind(vsize.taxasums, colors)
 
 #To make the same graph everytime
 set.seed(486)
-plot(cooccur_graph.species,
+network.16S <- plot(cooccur_graph.species,
      layout = layout_with_fr,
      #label = TRUE,
      #label.font = 3,
@@ -76,7 +76,7 @@ plot(cooccur_graph.species,
      #vertex.size = vsize.taxasums, 
      vertex.label = NA, 
      edge.color = ecol,
-     edge.width = posneg.effect$effects)
+     edge.width = 1.5)
 #legends for the lines
 legend(x = -0.75, y = -1.3, 
        #frame = FALSE,
@@ -84,7 +84,6 @@ legend(x = -0.75, y = -1.3,
        col = c("blue", "red"), 
        lty = (1)
        )
-
 
 
 
@@ -158,7 +157,7 @@ plot(cooccur_graph.ITS,
      #vertex.size = vsize.taxasums, 
      vertex.label = NA, 
      edge.color = ecol.ITS,
-     edge.width = posneg.ITS.effect$effects)
+     edge.width = 1.5)
 #both##################################################################
 cooccur.both <- readRDS(file = "rds/cooccur.both.rds")
 
@@ -201,21 +200,33 @@ pos.graph.both <- graph_from_data_frame(pos.both, directed = FALSE)
 neg.graph.both <- graph_from_data_frame(neg.both, directed = FALSE)
 
 
-vcols <- vector(length = length(V(cooccur_graph.both)))
-vcols[] <- 'black'
-vcols[which(names(V(cooccur_graph.both)) == "Fusarium_vertillioides")] <- "pink"
-ecol <- rep("red", ecount(cooccur_graph.both))
-ecol[E(cooccur_graph.both) %in% E(pos.graph.both)] <- "blue"
+vcols.both <- vector(length = length(V(cooccur_graph.both)))
+vcols.both[] <- 'black'
+vcols.both[which(names(V(cooccur_graph.both)) == "Fusarium_vertillioides")] <- "pink"
+ecol.both <- rep("red", ecount(cooccur_graph.both))
+ecol.both[E(cooccur_graph.both) %in% E(pos.graph.both)] <- "blue"
 #ecol[E(cooccur_graph.species) %in% E(neg.graph)] <- "red"
 #ecol <- rep("red", ecount(cooccur_graph.species))
 #ecol[(cooccur_graph.species) %in% pos.graph] <- "blue"
 #ecol[(cooccur_graph.species) %in% neg.graph] <- "red"
 
-vertex <- names(V(cooccur_graph.both))
-ps_vertices <- prune_taxa(taxa_names(ps.both) %in% vertex,ps.both)
-vsize.taxasums <- as.data.frame(taxa_sums(ps_vertices))
+vertex.both <- names(V(cooccur_graph.both))
+ps_vertices.both <- prune_taxa(taxa_names(ps.both) %in% vertex,ps.both)
+vsize.taxasums.both <- as.data.frame(taxa_sums(ps_vertices))
 
-plot(cooccur_graph.both)
-
+set.seed(486)
+plot(cooccur_graph.both,
+     layout = layout_with_fr,
+     #label = TRUE,
+     #label.font = 3,
+     #label.cex = 0.75,
+     #layout = cooccur.layout,
+     vertex.color = vcols.both, 
+     vertex.shape = "circle",
+     vertex.label.cex = 0.75,
+     #vertex.size = vsize.taxasums, 
+     vertex.label = NA, 
+     edge.color = ecol.both,
+     edge.width = 1.5)
 
 
