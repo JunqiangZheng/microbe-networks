@@ -58,24 +58,23 @@ ecol[E(cooccur_graph.species) %in% E(pos.graph)] <- "blue"
 
 vertex <- names(V(cooccur_graph.species))
 ps_vertices <- prune_taxa(taxa_names(ps.16S) %in% vertex,ps.16S)
-as.data.frame(tax_table(ps_vertices))
-vsize.taxasums <- as.data.frame(taxa_sums(ps_vertices))
-vsize.taxasums1 <- cbind(vsize.taxasums, colors) 
+nodes16S <- cbind(1:24,as.data.frame(tax_table(ps_vertices)))
+write.csv(nodes16S, "images/16Snodes.csv")
 
 
 #To make the same graph everytime
 set.seed(486)
 network.16S <- plot(cooccur_graph.species,
-     layout = layout_with_fr,
-     #label = TRUE,
+     #layout = layout_with_fr,
+     label = TRUE,
      #label.font = 3,
-     #label.cex = 0.75,
+     label.cex = 0.75,
      #layout = cooccur.layout,
      vertex.color = vcols, 
      vertex.shape = "circle",
      vertex.label.cex = 0.75,
-     #vertex.size = vsize.taxasums, 
-     vertex.label = NA, 
+     vertex.label = vertex, 
+     vertex.label.color = "white",
      edge.color = ecol,
      edge.width = 1.5)
 #legends for the lines
@@ -142,7 +141,7 @@ ecol.ITS[E(cooccur_graph.ITS) %in% E(pos.graph.ITS)] <- "blue"
 
 vertex.ITS <- names(V(cooccur_graph.ITS))
 ps_vertices.ITS <- prune_taxa(taxa_names(ps.ITS) %in% vertex.ITS,ps.ITS)
-vsize.taxasums.ITS <- as.data.frame(taxa_sums(ps_vertices.ITS))
+write.csv(as.data.frame(tax_table(ps_vertices.ITS)), "images/ITSnodes.csv")
 
 
 set.seed(486)
@@ -212,8 +211,8 @@ ecol.both[E(cooccur_graph.both) %in% E(pos.graph.both)] <- "blue"
 #ecol[(cooccur_graph.species) %in% neg.graph] <- "red"
 
 vertex.both <- names(V(cooccur_graph.both))
-ps_vertices.both <- prune_taxa(taxa_names(ps.both) %in% vertex,ps.both)
-vsize.taxasums.both <- as.data.frame(taxa_sums(ps_vertices))
+ps_vertices.both <- prune_taxa(taxa_names(ps.both.new10) %in% vertex,ps.both.new10)
+write.csv(as.data.frame(tax_table(ps_vertices.both)), "images/bothnodes.csv")
 
 set.seed(486)
 plot(cooccur_graph.both,
