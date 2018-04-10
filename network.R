@@ -59,7 +59,7 @@ ecol[E(cooccur_graph.species) %in% E(pos.graph)] <- "blue"
 vertex <- names(V(cooccur_graph.species))
 ps_vertices <- prune_taxa(taxa_names(ps.16S) %in% vertex,ps.16S)
 nodes16S <- cbind(1:24,as.data.frame(tax_table(ps_vertices)))
-write.csv(nodes16S, "images/16Snodes.csv")
+#write.csv(nodes16S, "images/16Snodes.csv")
 
 
 #To make the same graph everytime
@@ -74,16 +74,16 @@ network.16S <- plot(cooccur_graph.species,
      vertex.shape = "circle",
      vertex.label.cex = 0.75,
      vertex.label = vertex, 
-     vertex.label.color = "white",
+     vertex.label.color = "blue",
      edge.color = ecol,
      edge.width = 1.5)
 #legends for the lines
-legend(x = -0.75, y = -1.3, 
-       #frame = FALSE,
-       legend=c("Positive", "Negative"), 
-       col = c("blue", "red"), 
-       lty = (1)
-       )
+#legend(x = -0.75, y = -1.3, 
+#       #frame = FALSE,
+ #      legend=c("Positive", "Negative"), 
+  #     col = c("blue", "red"), 
+   #    lty = (1)
+    #   )
 
 
 
@@ -97,11 +97,6 @@ cooccur.ITSC <- effect.sizes(cooccur.ITS)
 
 cooccur.ITSPC <- cbind(cooccur.ITSC, cooccur.ITSP)
 
-options(repr.plot.width = 10, repr.plot.height = 6)
-plot(sort(cooccur.ITSPC$effect), 
-     xlab='Species pairs', 
-     ylab = 'Cooccurrence effect size',
-     main='Endophyte cooccurrence effect sizes')
 
 cooccur.ITSPC$p_gt_adj <- p.adjust(cooccur.ITSPC$p_gt, method = "BH")
 cooccur.ITSPC$p_lt_adj <- p.adjust(cooccur.ITSPC$p_lt, method = "BH")
@@ -109,11 +104,6 @@ strong_cooccur.ITS <- cooccur.ITSPC[cooccur.ITSPC$p_gt_adj <= 0.05,]
 negative_cooccur.ITS <- cooccur.ITSPC[cooccur.ITSPC$p_lt <= 0.05,] 
 dim(negative_cooccur.ITS)
 
-options(repr.plot.width = 10,repr.plot.height = 6)
-plot(sort(strong_cooccur.ITS$effect), 
-     xlab='Species pairs',
-     ylab = 'Cooccurrence effect size',
-     main='Cooccurrence effect sizes')
 
 pos.ITS.effect <- strong_cooccur.ITS[,c(1, 2, 3)]
 neg.ITS.effect <- negative_cooccur.ITS[,c(1, 2, 3)]
@@ -131,7 +121,7 @@ neg.graph.ITS <- graph_from_data_frame(neg.ITS, directed = FALSE)
 
 vcols.ITS <- vector(length = length(V(cooccur_graph.ITS)))
 vcols.ITS[] <- 'black'
-vcols.ITS[which(names(V(cooccur_graph.ITS)) == "Fusarium_vertillioides")] <- "pink"
+vcols.ITS[grep("^Fusarium", names(V(cooccur_graph.ITS)))] <- "pink"
 ecol.ITS <- rep("red", ecount(cooccur_graph.ITS))
 ecol.ITS[E(cooccur_graph.ITS) %in% E(pos.graph.ITS)] <- "blue"
 #ecol[E(cooccur_graph.species) %in% E(neg.graph)] <- "red"
@@ -139,7 +129,7 @@ ecol.ITS[E(cooccur_graph.ITS) %in% E(pos.graph.ITS)] <- "blue"
 #ecol[(cooccur_graph.species) %in% pos.graph] <- "blue"
 #ecol[(cooccur_graph.species) %in% neg.graph] <- "red"
 
-vertex.ITS <- names(V(cooccur_graph.ITS))
+vertex.ITS <- cbind(names(V(cooccur_graph.ITS)),1:42)
 ps_vertices.ITS <- prune_taxa(taxa_names(ps.ITS) %in% vertex.ITS,ps.ITS)
 write.csv(as.data.frame(tax_table(ps_vertices.ITS)), "images/ITSnodes.csv")
 
@@ -168,23 +158,11 @@ cooccur.bothC <- effect.sizes(cooccur.both)
 
 cooccur.bothPC <- cbind(cooccur.bothC, cooccur.bothP)
 
-options(repr.plot.width = 10, repr.plot.height = 6)
-plot(sort(cooccur.bothPC$effect), 
-     xlab='Species pairs', 
-     ylab = 'Cooccurrence effect size',
-     main='Endophyte cooccurrence effect sizes')
-
 cooccur.bothPC$p_gt_adj <- p.adjust(cooccur.bothPC$p_gt, method = "BH")
 cooccur.bothPC$p_lt_adj <- p.adjust(cooccur.bothPC$p_lt, method = "BH")
 strong_cooccur.both <- cooccur.bothPC[cooccur.bothPC$p_gt_adj <= 0.05,]
 negative_cooccur.both <- cooccur.bothPC[cooccur.bothPC$p_lt_adj <= 0.05,] 
 dim(negative_cooccur.both)
-
-options(repr.plot.width = 10,repr.plot.height = 6)
-plot(sort(strong_cooccur.both$effect), 
-     xlab='Species pairs',
-     ylab = 'Cooccurrence effect size',
-     main='Cooccurrence effect sizes')
 
 pos.both.effect <- strong_cooccur.both[,c(1, 2, 3)]
 neg.both.effect <- negative_cooccur.both[,c(1, 2, 3)]
