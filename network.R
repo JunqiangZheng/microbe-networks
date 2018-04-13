@@ -125,25 +125,35 @@ vcols.ITS[grep("^Fusarium", names(V(cooccur_graph.ITS)))] <- "pink"
 ecol.ITS <- rep("red", ecount(cooccur_graph.ITS))
 ecol.ITS[E(cooccur_graph.ITS) %in% E(pos.graph.ITS)] <- "blue"
 
-vertex.ITS <- cbind(names(V(cooccur_graph.ITS)),1:42)
+vertex.ITS <- cbind(names(V(cooccur_graph.ITS)), 1:29)
 ps_vertices.ITS <- prune_taxa(taxa_names(ps.ITS) %in% vertex.ITS,ps.ITS)
 write.csv(as.data.frame(tax_table(ps_vertices.ITS)), "images/ITSnodes.csv")
 
+vertex.attributes((cooccur_graph.ITS[-grep("^Fusarium", names(V(cooccur_graph.ITS)))])
 
-set.seed(486)
+vname = list()
+vnames <- for(i in 1:29){
+  if(vertex.ITS[i,1] == grep("^Fusarium", names(V(cooccur_graph.ITS)))){
+    vnames[i] = 'F'
+  }else{
+    vnames[i] = vertex.ITS[i,2]
+    
+  }
+}
+
+
+set.seed(55)
 plot(cooccur_graph.ITS,
      layout = layout_with_fr,
-     #label = TRUE,
-     #label.font = 3,
-     #label.cex = 0.75,
-     #layout = cooccur.layout,
+     label = TRUE,
      vertex.color = vcols.ITS, 
      vertex.shape = "circle",
-     vertex.label.cex = 0.75,
-     #vertex.size = vsize.taxasums, 
-     vertex.label = NA,
+     vertex.label = 0.75,
+     vertex.label.cex = vertex.ITS[,2],
      edge.color = ecol.ITS,
      edge.width = 1.5)
+
+
 #both##################################################################
 cooccur.both <- readRDS(file = "rds/cooccur.both.rds")
 
