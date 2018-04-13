@@ -56,7 +56,7 @@ ecol[E(cooccur_graph.species) %in% E(pos.graph)] <- "blue"
 #ecol[(cooccur_graph.species) %in% pos.graph] <- "blue"
 #ecol[(cooccur_graph.species) %in% neg.graph] <- "red"
 
-vertex <- names(V(cooccur_graph.species))
+vertex <- cbind(names(V(cooccur_graph.species)), 1:24)
 ps_vertices <- prune_taxa(taxa_names(ps.16S) %in% vertex,ps.16S)
 nodes16S <- cbind(1:24,as.data.frame(tax_table(ps_vertices)))
 #write.csv(nodes16S, "images/16Snodes.csv")
@@ -73,8 +73,8 @@ network.16S <- plot(cooccur_graph.species,
      vertex.color = vcols, 
      vertex.shape = "circle",
      vertex.label.cex = 0.75,
-     vertex.label = vertex, 
-     vertex.label.color = "blue",
+     vertex.label = vertex[,2], 
+     vertex.label.color = "white",
      edge.color = ecol,
      edge.width = 1.5)
 #legends for the lines
@@ -127,20 +127,7 @@ ecol.ITS[E(cooccur_graph.ITS) %in% E(pos.graph.ITS)] <- "blue"
 
 vertex.ITS <- cbind(names(V(cooccur_graph.ITS)), 1:29)
 ps_vertices.ITS <- prune_taxa(taxa_names(ps.ITS) %in% vertex.ITS,ps.ITS)
-write.csv(as.data.frame(tax_table(ps_vertices.ITS)), "images/ITSnodes.csv")
-
-vertex.attributes((cooccur_graph.ITS[-grep("^Fusarium", names(V(cooccur_graph.ITS)))])
-
-vname = list()
-vnames <- for(i in 1:29){
-  if(vertex.ITS[i,1] == grep("^Fusarium", names(V(cooccur_graph.ITS)))){
-    vnames[i] = 'F'
-  }else{
-    vnames[i] = vertex.ITS[i,2]
-    
-  }
-}
-
+write.csv(cbind(1:29,as.data.frame(tax_table(ps_vertices.ITS))), "images/ITSnodes.csv")
 
 set.seed(55)
 plot(cooccur_graph.ITS,
@@ -148,8 +135,9 @@ plot(cooccur_graph.ITS,
      label = TRUE,
      vertex.color = vcols.ITS, 
      vertex.shape = "circle",
-     vertex.label = 0.75,
-     vertex.label.cex = vertex.ITS[,2],
+     vertex.label.cex = 0.75,
+     vertex.label = vertex.ITS[,2],
+     vertex.label.color = 'white',
      edge.color = ecol.ITS,
      edge.width = 1.5)
 
