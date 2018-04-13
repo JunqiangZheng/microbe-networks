@@ -124,10 +124,6 @@ vcols.ITS[] <- 'black'
 vcols.ITS[grep("^Fusarium", names(V(cooccur_graph.ITS)))] <- "pink"
 ecol.ITS <- rep("red", ecount(cooccur_graph.ITS))
 ecol.ITS[E(cooccur_graph.ITS) %in% E(pos.graph.ITS)] <- "blue"
-#ecol[E(cooccur_graph.species) %in% E(neg.graph)] <- "red"
-#ecol <- rep("red", ecount(cooccur_graph.species))
-#ecol[(cooccur_graph.species) %in% pos.graph] <- "blue"
-#ecol[(cooccur_graph.species) %in% neg.graph] <- "red"
 
 vertex.ITS <- cbind(names(V(cooccur_graph.ITS)),1:42)
 ps_vertices.ITS <- prune_taxa(taxa_names(ps.ITS) %in% vertex.ITS,ps.ITS)
@@ -145,7 +141,7 @@ plot(cooccur_graph.ITS,
      vertex.shape = "circle",
      vertex.label.cex = 0.75,
      #vertex.size = vsize.taxasums, 
-     vertex.label = NA, 
+     vertex.label = NA,
      edge.color = ecol.ITS,
      edge.width = 1.5)
 #both##################################################################

@@ -19,9 +19,12 @@ saveRDS(cooccur.species, file = "rds/cooccur.species.10.rds")
 ##ITS##########################
 ###importing in the data set
 ps.ITS <- readRDS(file = "rds/ITS_crn.ps.deseq-new10.Rds")
+ps.OTU.ITS <- otu_table(read.csv("ITSotutab.csv",sep = ';', row.names = 1), taxa_are_rows = TRUE)
+ps.ITS.merge <- phyloseq(ps.OTU.ITS, sample_data(ps.ITS), tax_table(ps.ITS))
+#otu_table(ps.ITS) = ps.OTU.ITS
 
 #Running the cooccur function for family:
-pscooccurITS_pruned <- prune_samples(names(which(sample_sums(ps.ITS) >= 0)), ps.ITS)
+pscooccurITS_pruned <- prune_samples(names(which(sample_sums(ps.ITS.merge) >= 0)), ps.ITS.merge)
 pscooccurITS_pruned <-subset_samples(pscooccurITS_pruned, type != "DNA_control")
 pscooccurITS_pruned_pa <- transform_sample_counts(pscooccurITS_pruned,function(x)1*(x>0))
 
