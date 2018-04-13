@@ -19,6 +19,8 @@ saveRDS(cooccur.species, file = "rds/cooccur.species.10.rds")
 ##ITS##########################
 ###importing in the data set
 ps.ITS <- readRDS(file = "rds/ITS_crn.ps.deseq-new10.Rds")
+
+###because there were some issues later down the line with repeat  species, species were manually merged
 ps.OTU.ITS <- otu_table(read.csv("ITSotutab.csv",sep = ';', row.names = 1), taxa_are_rows = TRUE)
 ps.ITS.merge <- phyloseq(ps.OTU.ITS, sample_data(ps.ITS), tax_table(ps.ITS))
 #otu_table(ps.ITS) = ps.OTU.ITS
